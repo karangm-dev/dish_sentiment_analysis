@@ -78,7 +78,24 @@
    "execution_count": null,
    "metadata": {},
    "outputs": [],
-   "source": []
+   "source": [
+    "import csv\n",
+    "\n",
+    "def getstuff(filename, criterion):\n",
+    "    with open(filename, \"rb\") as csvfile:\n",
+    "        datareader = csv.reader(csvfile)\n",
+    "        yield next(datareader)  # yield the header row\n",
+    "        count = 0\n",
+    "        for row in datareader:\n",
+    "            if row[3] == criterion:\n",
+    "                yield row\n",
+    "                count += 1\n",
+    "            elif count:\n",
+    "                # done when having read a consecutive series of rows \n",
+    "                return\n",
+    "\n",
+    "getstuff( 'C:\\\\Users\\\\manvi\\\\OneDrive\\\\Documents\\\\NLP\\\\business.csv', criterion)"
+   ]
   }
  ],
  "metadata": {
